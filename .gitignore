@@ -43,3 +43,6 @@ golang_talk/src/gopkg.in
 bin
 .govenv
 pkg
+.python_example
+node_modules
+!nodejs_example
