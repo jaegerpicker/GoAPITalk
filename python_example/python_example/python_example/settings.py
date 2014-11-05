@@ -36,6 +36,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'devserver',
+    'rest_framework',
+    'api',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -58,9 +61,22 @@ WSGI_APPLICATION = 'python_example.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'goapitalk_python',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'django.contrib.auth.models.AnonymousUser',
+    ),
 }
 
 # Internationalization
@@ -81,3 +97,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DEVSERVER_TRUNCATE_SQL = False
+DEVSERVER_AUTO_PROFILE = True
+
+DEVSERVER_MODULES = (
+    'devserver.modules.sql.SQLRealTimeModule',
+    'devserver.modules.sql.SQLSummaryModule',
+    'devserver.modules.profile.ProfileSummaryModule',
+
+    # Modules not enabled by default
+    'devserver.modules.ajax.AjaxDumpModule',
+    'devserver.modules.profile.MemoryUseModule',
+    'devserver.modules.cache.CacheSummaryModule',
+    'devserver.modules.profile.LineProfilerModule',
+)

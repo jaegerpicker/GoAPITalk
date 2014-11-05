@@ -46,3 +46,4 @@ pkg
 .python_example
 node_modules
 !nodejs_example
+*.pyc

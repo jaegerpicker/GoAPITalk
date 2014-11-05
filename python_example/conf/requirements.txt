@@ -11,3 +11,11 @@ pep8
 mock
 requests
 requests-futures
+markdown
+django-filter
+git+git://github.com/dcramer/django-devserver#egg=django-devserver
+sqlparse
+werkzeug
+guppy
+line_profiler
+Dozer
