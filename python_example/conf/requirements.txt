@@ -1,0 +1,13 @@
+Django
+djangorestframework
+MySQL-python
+ipython
+pytest
+pytest-django
+django-pytest
+pylint
+pyflakes
+pep8
+mock
+requests
+requests-futures
