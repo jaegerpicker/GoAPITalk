@@ -53,4 +53,24 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  namespace :api do
+      scope '/users' do
+          get '/' => 'users#index'
+          post '/' => 'users#create'
+          scope '/:id' do
+              get '/' => 'users#show'
+              put '/' => 'users#update'
+              delete '/' => 'users#destroy'
+          end
+      end
+      scope '/todos' do
+          get '/' => 'todos#index'
+          post '/' => 'todos#create'
+          scope '/:id' do
+              get '/' => 'todos#show'
+              put '/' => 'todos#update'
+              delete '/' => 'todos#destroy'
+          end
+      end
+  end
 end
