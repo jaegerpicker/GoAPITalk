@@ -6,10 +6,10 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
     "net/http"
-    "log"
     "regexp"
     "time"
     "sync"
+    "strings"
     )
 
 var settings Settings
@@ -40,11 +40,11 @@ func main() {
 		return "alive"
 	})
 	r.Get("/users", UsersList)
-    r.Post("/users", binding.Bind([]Task{}), UsersAdd)
+    r.Post("/users", UsersAdd)
     r.Get("/users/:id", UsersShow)
-    r.Put("/users/:id", binding.Bind([]Task{}), UsersUpdate)
+    r.Put("/users/:id", UsersUpdate)
     r.Delete("/users/:id", UsersDelete)
-    r.Get("/todos", TodoList)
+    r.Get("/todos", GetTodos)
 	r.Post("/todos", TodosAdd)
     r.Get("/todos/:id", TodosShow)
     r.Put("/todos/:id", TodosUpdate)
@@ -58,14 +58,14 @@ func main() {
     go func(cs chan bool) {
         defer wg.Done()
         b := <-cs
-        fmt.Println("Channel passed: %v", b)
+        fmt.Println(fmt.Sprintf("Channel passed: %v", b))
         if err = http.ListenAndServe(":"+settings.Port, m); err != nil {
             LogWrite(fmt.Sprintf("Error starting webserver: %v", err), "ERROR")
         }
 
     }(cs)
     wg.Add(1)
-    go CheckOnfile(&wg, cs)
+    go CheckOnFile(&wg, cs)
 
     // You can use this to wait on the go routines to exit, in the http server case
     // it hopefully never exits.
@@ -98,7 +98,7 @@ var rxExt = regexp.MustCompile(`(\.(?:xml|text|json))\/?$`)
 func MapEncoder(c martini.Context, w http.ResponseWriter, r *http.Request) {
 	// Get the format extension
 	matches := rxExt.FindStringSubmatch(r.URL.Path)
-	ft := ".soap"
+	ft := ".json"
 	if len(matches) > 1 {
 		// Rewrite the URL without the format extension
 		l := len(r.URL.Path) - len(matches[1])

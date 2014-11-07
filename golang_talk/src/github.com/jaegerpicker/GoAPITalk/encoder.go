@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
-	"strings"
 )
 
 // An Encoder implements an encoding format of values to be sent as response to

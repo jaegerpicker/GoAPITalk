@@ -10,3 +10,4 @@ go get github.com/martini-contrib/auth
 go get github.com/codegangsta/gin
 go get github.com/davecgh/go-spew/spew
 go get gopkg.in/mgo.v2
+go get github.com/codegangsta/martini-contrib/binding

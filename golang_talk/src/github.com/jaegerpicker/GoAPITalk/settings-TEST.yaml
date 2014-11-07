@@ -1,0 +1,10 @@
+DbUser: root
+DbPass: root
+DbHost: localhost
+DbPort: 3306
+Environment: TEST
+LogLevel: INFO
+LogType: FILE
+LogLocation: log.txt
+DbName: goapitalk_test
+Port: 3000

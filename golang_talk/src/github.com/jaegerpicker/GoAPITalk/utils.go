@@ -1,7 +1,6 @@
 package main
 
 import (
-    "fmt"
     "log"
     _ "github.com/go-sql-driver/mysql"
     "github.com/jinzhu/gorm"
@@ -17,8 +16,5 @@ func LogWrite(message string, logLevel string) {
 		log.Printf("\n\n\t(%s)Message logged:\n\t===========\n\t%s\n\n", logLevel, message)
 	} else if logLevel == "ERROR" {
 		log.Printf("\n\n\n\t(%s)ERROR LOGGED: \n====================\n\t%s\n\n\n", logLevel, message)
-		if ret != "" {
-			fmt.Println(ret)
-		}
 	}
 }

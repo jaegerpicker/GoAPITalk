@@ -5,6 +5,9 @@ import (
 	"github.com/jinzhu/gorm"
 	"net/http"
     "strconv"
+    "encoding/json"
+    "io/ioutil"
+    "fmt"
 )
 
 
@@ -20,8 +23,18 @@ func UsersList(r *http.Request, enc Encoder, db *gorm.DB, params martini.Params)
     return http.StatusOK, ret
 }
 
-func UsersAdd(r *http.Request, enc Encoder, db *gorm.DB, params martini.Params, todos []Task) (int, string) {
-    user, err := AddUser(db, params["username"])
+func UsersAdd(r *http.Request, enc Encoder, db *gorm.DB, params martini.Params) (int, string) {
+    defer r.Body.Close()
+    var dat map[string]interface{}
+    requestBody, err := ioutil.ReadAll(r.Body)
+    if err != nil {
+        return http.StatusBadRequest, "Invalid user in request"
+    }
+    err = json.Unmarshal(requestBody, &dat)
+    if err != nil {
+        return http.StatusBadRequest, "Invalid user"
+    }
+    user, err := AddUser(db, fmt.Sprintf("%v", dat["username"]))
     if err != nil {
         return http.StatusInternalServerError, ""
     }
@@ -30,7 +43,7 @@ func UsersAdd(r *http.Request, enc Encoder, db *gorm.DB, params martini.Params, 
 }
 
 func UsersShow(r *http.Request, enc Encoder, db *gorm.DB, params martini.Params) (int, string) {
-    id, err := strconv.Atoi(params["user_id"])
+    id, err := strconv.Atoi(params["id"])
     if err != nil {
         return http.StatusBadRequest, "Invalid user id"
     }
@@ -42,12 +55,29 @@ func UsersShow(r *http.Request, enc Encoder, db *gorm.DB, params martini.Params)
     return http.StatusOK, ret
 }
 
-func UsersUpdate(r *http.Request, enc Encoder, db *gorm.DB, params martini.Params, todos []Task) (int, string) {
-    id, err := strconv.Atoi(params["user_id"])
+func UsersUpdate(r *http.Request, enc Encoder, db *gorm.DB, params martini.Params) (int, string) {
+    defer r.Body.Close()
+    id, err := strconv.Atoi(params["id"])
     if err != nil {
         return http.StatusBadRequest, "Invalid user id"
     }
-    user, err := UpdateUser(db, int64(id), params["username"], todos)
+    var dat map[string]interface{}
+    requestBody, err := ioutil.ReadAll(r.Body)
+    if err != nil {
+        return http.StatusBadRequest, "Invalid user in request"
+    }
+    err = json.Unmarshal(requestBody, &dat)
+    if err != nil {
+        return http.StatusBadRequest, "Invalid user"
+    }
+    var todos []Task
+    todos_str := fmt.Sprintf("%v", dat["todos"])
+    fmt.Println(todos_str)
+    err = json.Unmarshal([]byte(todos_str), &todos)
+    if err != nil {
+        return http.StatusBadRequest, "Invalid list of todos"
+    }
+    user, err := UpdateUser(db, int64(id), fmt.Sprintf("%v",dat["username"]), todos)
     if err != nil {
         return http.StatusInternalServerError, ""
     }
@@ -115,7 +145,11 @@ func TodosUpdate(r *http.Request, enc Encoder, db *gorm.DB, params martini.Param
 }
 
 func TodosDelete(r *http.Request, enc Encoder, db *gorm.DB, params martini.Params) (int, string) {
-    ret, err := DeleteTodo(db, params["todo_id"])
+    id, err := strconv.Atoi(params["todo_id"])
+    if err != nil {
+        return http.StatusBadRequest, "Invalid id"
+    }
+    ret, err := DeleteTodo(db, int64(id))
     if err != nil {
         return http.StatusInternalServerError, ""
     }
