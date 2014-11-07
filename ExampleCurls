@@ -1,0 +1,75 @@
+Ruby:
+curl -X GET "http://localhost:3000/api/users/1/" \
+     -m 30 \
+     -v \
+curl -X PUT "http://localhost:3000/api/users/1/" \
+     -H "Accept: application/json" \
+     -H "Content-Type: application/json" \
+     -d $'{\n\t"username": "shawn"\n}' \
+     -m 30 \
+     -v \
+curl -X POST "http://localhost:3000/api/users.json" \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d $'{\n\t"username": "shawn"\n}' \
+     -m 30 \
+     -v \
+curl -X GET "http://localhost:3000/api/users/1/" \
+     -m 30 \
+     -v \
+curl -X GET "http://localhost:3000/api/todos.json" \
+     -m 30 \
+     -v \
+curl -X POST "http://localhost:3000/api/todos.json" \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d $'{\n\t"task": "fix-it felix",\n\t"user_id": 1\n} ' \
+     -m 30 \
+     -v \
+Node.js:
+curl -X DELETE "http://localhost:4000/tasks/2" \
+     -m 30 \
+     -v \
+curl -X GET "http://localhost:4000/users/1/tasks" \
+     -m 30 \
+     -v \
+curl -X GET "http://localhost:4000/tasks" \
+     -H "Content-Type: application/json" \
+     -d $'{\n\t"title": "put task here",\n\t"UserId": 1\n}' \
+     -m 30 \
+     -v \
+curl -X GET "http://localhost:4000/version" \
+     -m 30 \
+     -v \
+curl -X GET "http://localhost:4000/users/" \
+     -d $'{\n\tusername: "scampbell"\n}' \
+     -m 30 \
+     -v \
+Python:
+curl -X GET "http://localhost:8000/users/" \
+     -m 30 \
+     -v \
+curl -X POST "http://localhost:8000/users/" \
+     -H "Accept: application/json" \
+     -H "Content-Type: application/json" \
+     -d $'{\n\t"username": "newshawn"\n}' \
+     -m 30 \
+     -v \
+curl -X GET "http://localhost:8000/todousers/" \
+     -m 30 \
+     -v \
+curl -X POST "http://localhost:8000/todousers/" \
+     -H "Accept: application/json" \
+     -H "Content-Type: application/json" \
+     -d $'{\n\t"user": "http://localhost:8000/users/4/",\n\t"task": "test"\n}' \
+     -m 30 \
+     -v \
+curl -X GET "http://localhost:8000/tasks/" \
+     -m 30 \
+     -v \
+curl -X POST "http://localhost:8000/tasks/" \
+     -H "Accept: application/json" \
+     -H "Content-Type: application/json" \
+     -d $'{\n\t"todouser_id": 4,\n\t"todo": "new task"\n}' \
+     -m 30 \
+     -v \
