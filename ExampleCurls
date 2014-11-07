@@ -73,3 +73,4 @@ curl -X POST "http://localhost:8000/tasks/" \
      -d $'{\n\t"todouser_id": 4,\n\t"todo": "new task"\n}' \
      -m 30 \
      -v \
+Go:
