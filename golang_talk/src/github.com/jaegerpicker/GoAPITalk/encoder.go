@@ -35,7 +35,7 @@ func (_ JsonEncoder) Encode(v ...interface{}) (string, error) {
 		data = v[0]
 	}
 	b, err := json.Marshal(data)
-	LogWrite("jsonEncoder", "ERROR")
+	//LogWrite("jsonEncoder", "ERROR")
 	return string(b), err
 }
 
@@ -54,7 +54,7 @@ func (_ XmlEncoder) Encode(v ...interface{}) (string, error) {
 	if _, err := buf.Write(b); err != nil {
 		return "", err
 	}
-	LogWrite("xmlEncoder", "ERROR")
+	//LogWrite("xmlEncoder", "ERROR")
 	return buf.String(), nil
 }
 
@@ -68,6 +68,6 @@ func (_ TextEncoder) Encode(v ...interface{}) (string, error) {
 			return "", err
 		}
 	}
-	LogWrite("TextEncoder", "ERROR")
+	//LogWrite("TextEncoder", "ERROR")
 	return buf.String(), nil
 }

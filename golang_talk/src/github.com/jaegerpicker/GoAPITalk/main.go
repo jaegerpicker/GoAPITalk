@@ -44,6 +44,8 @@ func main() {
     r.Get("/users/:id", UsersShow)
     r.Put("/users/:id", UsersUpdate)
     r.Delete("/users/:id", UsersDelete)
+    r.Post("/users/:id/todos", UsersAddTodos)
+    r.Get("/users/:id/todos", UsersShowTodos)
     r.Get("/todos", GetTodos)
 	r.Post("/todos", TodosAdd)
     r.Get("/todos/:id", TodosShow)
@@ -109,7 +111,7 @@ func MapEncoder(c martini.Context, w http.ResponseWriter, r *http.Request) {
 		ft = matches[1]
 	}
 	// Inject the requested encoder
-	LogWrite(fmt.Sprintf("\nencoder type:\n\n%s\n\n", ft), "INFO")
+	//LogWrite(fmt.Sprintf("\nencoder type:\n\n%s\n\n", ft), "INFO")
 	switch ft {
 	case ".xml":
 		c.MapTo(XmlEncoder{}, (*Encoder)(nil))
