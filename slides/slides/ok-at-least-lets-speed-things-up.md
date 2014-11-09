@@ -3,7 +3,7 @@
 Three popular paths to speeding up your API and some issues relating to them:
 
 - Java (JVM based language)
-    - This is a heavy vm and deployment is a pretty bring pain. Plus the language itself is less productive then many other choices. Very "Enterprisy" and the cpu/ram usage is still not great
+    - This is a heavy vm and deployment is a pretty big pain. Plus the language itself is less productive than many other choices. Very "Enterprisy" and the cpu/ram usage is still not great
 - C/C++
     - Very dangerous, difficult to write secure software, way fewer web focused frameworks/libs, kinda sorta typed but not really
 - C# (dot net)
