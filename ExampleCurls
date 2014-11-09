@@ -74,3 +74,31 @@ curl -X POST "http://localhost:8000/tasks/" \
      -m 30 \
      -v \
 Go:
+curl -X GET "http://localhost:3000/users.json" \
+     -m 30 \
+     -v \
+curl -X POST "http://localhost:3000/users" \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d $'{\n\t"username": "shawn"\n}' \
+     -m 5000 \
+     -v \
+curl -X GET "http://localhost:3000/users/1/" \
+     -m 30 \
+     -v \
+curl -X PUT "http://localhost:3000/users/1/" \
+     -H "Accept: application/json" \
+     -H "Content-Type: application/json" \
+     -d $'{\n\t"username": "shawnC"\n}' \
+     -m 30 \
+     -v \
+curl -X GET "http://localhost:3000/todos" \
+     -m 30 \
+     -v \
+curl -X POST "http://localhost:3000/todos" \
+     -d $'{\n\t"Todo": "test",\n\t"UserId": 1\n}' \
+     -m 30 \
+     -v \
+curl -X DELETE "http://localhost:3000/users/1/" \
+     -m 30 \
+     -v \

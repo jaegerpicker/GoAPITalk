@@ -1,0 +1,10 @@
+{
+  "generator-reveal": {
+    "presentationTitle": "Making your rest api \"Go\" faster: An introduction to go",
+    "packageVersion": "1.0.0",
+    "useSass": false,
+    "deployToGithubPages": true,
+    "githubUsername": "jaegerpicker",
+    "githubRepository": "GoAPITalk"
+  }
+}
